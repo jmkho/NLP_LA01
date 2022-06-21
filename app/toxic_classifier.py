@@ -27,7 +27,7 @@ from streamlit_option_menu import option_menu
 
 @st.experimental_memo
 def dataframe_load(): 
-  df = pd.read_csv("train.csv")
+  df = pd.read_csv("https://raw.githubusercontent.com/jmkho/NLP_LA01/main/app/train.csv")
   return df
 
 # Cleaning the dataset 
