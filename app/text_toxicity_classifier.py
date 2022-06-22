@@ -282,7 +282,7 @@ if select == "Model Evaluation":
   plt.yticks(x, ('Toxic', 'Severe Toxic', 'Obscene', 'Insult', 'Threat', 'Identity Hate'), size=12)
   st.pyplot(plt.gcf())
 
-  all_score = {"Accuracy_Score (%)":acc_score_arr, "Hamming Loss":hamm_score_arr, "Jaccard Score":jacc_score_arr, "MAE Score":mae_score_arr, "R2 Score":rmse_score_arr}
+  all_score = {"Accuracy_Score (%)":acc_score_arr, "Hamming Loss":hamm_score_arr, "Jaccard Score":jacc_score_arr, "MAE Score":mae_score_arr, "RMSE Score":rmse_score_arr}
   all_df = pd.DataFrame(all_score)
   all_df = all_df.rename({0:'Toxic', 1:'Severe_Toxic', 2:'Obscene', 3:'Insult', 4:'Threat', 5:'Identity_hate'})
   st.write(all_df)
@@ -291,7 +291,7 @@ if select == "Model Evaluation":
   st.caption("Hamming Loss: the fraction of targets that are misclassified.")
   st.caption("Jaccard Score: the intersection to the size of the union of label classes between predicted labels and ground truth labels.")
   st.caption("MAE Score: the difference between the measured value and true value.")
-  st.caption("R2 Score: how well a regression model can predict the value of the response variable in percentage terms.")
+  st.caption("RMSE Score: square root of MSE to equalize the scale with the target value.")
 
 
 if select == "Try Predicting":
