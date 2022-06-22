@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import seaborn as sns
+# import seaborn as sns
 import matplotlib.pyplot as plt
 import nltk
 import re
@@ -267,7 +267,8 @@ if select == "Data Information":
   st.write(dataframe_load().head())
 
   df_new = dataframe_load().iloc[:, 2:].sum()
-  plot = sns.barplot(df_new.index, df_new.values, palette="Blues_d")
+  plot = plt.barh(df_new.index, df_new.values)
+#   plot = sns.barplot(x=df_new.index, y=df_new.values, palette="Blues_d")
   plt.title("No. of comments in each class", size=15)
   plt.xlabel("Categories", fontsize=12)
   plt.ylabel("Comments frequency", fontsize=12)
