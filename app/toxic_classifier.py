@@ -27,7 +27,7 @@ from streamlit_option_menu import option_menu
 
 @st.experimental_memo
 def dataframe_load(): 
-  df = pd.read_csv("https://raw.githubusercontent.com/jmkho/NLP_LA01/main/app/train.csv")
+  df = pd.read_csv(r"jmkho/NLP_LA01/main/app/train.csv")
   return df
 
 # Cleaning the dataset 
@@ -184,39 +184,6 @@ with model_iht:
   CLF6.fit(x_train_fit_iht, y_train_iht)
   y_pred_iht = CLF6.predict(x_test_fit_iht)
 
-
-with st.sidebar:
-  select = option_menu (
-    menu_title = "Menu",
-    options = ["Home", "Data Information", "Model Evaluation", "Predict By Yourself"],
-  )
-
-if select == "Home":
-  st.title("Toxic Comments Classifier")
-  st.write("--project description")
-
-
-if select == "Data Information":
-  st.title("Explanatory Data Analysis")
-  st.write("Dataset we use are from .....")
-  st.write(dataframe_load().head())
-
-  df_new = dataframe_load().iloc[:, 2:].sum()
-  plot = sns.barplot(df_new.index, df_new.values, palette="Blues_d")
-  plt.title("No. of comments in each class", size=15)
-  plt.xlabel("Categories", fontsize=12)
-  plt.ylabel("Comments frequency", fontsize=12)
-
-  counts = plot.patches
-  labels = df_new.values
-
-  for count, label in zip(counts, labels):
-    height = count.get_height()
-    plot.text(count.get_x() + count.get_width()/2, height+5, label, ha='center', va='bottom')
-
-  st.pyplot(plt.gcf())
-
-
 @st.experimental_memo
 def f_acc(a, b):
   acc = accuracy_score(a, b)*100
@@ -283,6 +250,37 @@ jacc_score_arr = [jacc_tox, jacc_sev, jacc_obs, jacc_ins, jacc_thr, jacc_iht]
 mae_score_arr = [mae_tox, mae_sev, mae_obs, mae_ins, mae_thr, mae_iht]
 rmse_score_arr = [rmse_tox, rmse_sev, rmse_obs, rmse_ins, rmse_thr, rmse_iht]
 
+with st.sidebar:
+  select = option_menu (
+    menu_title = "Menu",
+    options = ["Home", "Data Information", "Model Evaluation", "Predict Yourself"],
+  )
+
+if select == "Home":
+  st.title("Toxic Comments Classifier")
+  st.write("--project description")
+
+
+if select == "Data Information":
+  st.title("Explanatory Data Analysis")
+  st.write("Dataset we use are from .....")
+  st.write(dataframe_load().head())
+
+  df_new = dataframe_load().iloc[:, 2:].sum()
+  plot = sns.barplot(df_new.index, df_new.values, palette="Blues_d")
+  plt.title("No. of comments in each class", size=15)
+  plt.xlabel("Categories", fontsize=12)
+  plt.ylabel("Comments frequency", fontsize=12)
+
+  counts = plot.patches
+  labels = df_new.values
+
+  for count, label in zip(counts, labels):
+    height = count.get_height()
+    plot.text(count.get_x() + count.get_width()/2, height+5, label, ha='center', va='bottom')
+
+  st.pyplot(plt.gcf())
+
 if select == "Model Evaluation":
   x = np.arange(6)
   plt.title("Accuracy percentage (%) for each category")
@@ -304,7 +302,7 @@ if select == "Model Evaluation":
   st.caption("R2 Score: how well a regression model can predict the value of the response variable in percentage terms.")
 
 
-if select == "Predict By Yourself":
+if select == "Predict Yourself":
   form = st.form(key='submit_text')
   comment = form.text_input("Enter your comment: ")
   submit = form.form_submit_button("Check toxicity")
